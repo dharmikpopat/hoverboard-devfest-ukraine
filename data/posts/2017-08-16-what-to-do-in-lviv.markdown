@@ -42,13 +42,13 @@ If you travel through Ukraine, use [Busfor](https://busfor.ua/) or [Tickets.ua](
 
 ## **City Transport**
 
-GDG DevFest Ukraine 2017 will take place at [Pivdennyi Expo Center](http://www.pivdennij.com/mahazyn/index/index/shop/1572/) ( [Shchyretska St, 36](https://goo.gl/maps/TbUnMJyiNYt)), which is 20-25 mins away from the city center by car or public transport. We have well developed transport infrastructure and there are few **apps** (described below) to help you to get where you need.
+GDG DevFest Ukraine 2017 will take place at [Pivdennyi Expo Center](http://www.pivdennij.com/mahazyn/index/index/shop/1572/) ([Shchyretska St, 36](https://goo.gl/maps/TbUnMJyiNYt)), which is 20-25 mins away from the city center by car or public transport. We have well developed transport infrastructure and there are few **apps** (described below) to help you to get where you need.
 
 **Taxi**
 
 The easiest way to get a taxi in Lviv is 
-- **Uber** ( [iOS](https://itunes.apple.com/us/app/uber/id368677368) and [Android](https://play.google.com/store/apps/details?hl=en&amp;id=com.ubercab) apps), which is recommended to get a ride fast
-- **Uklon** ( [iOS](https://itunes.apple.com/ua/app/id654646098) and [Android](https://play.google.com/store/apps/details?id=ua.com.uklontaxi)).
+- **Uber** ([iOS](https://itunes.apple.com/us/app/uber/id368677368) and [Android](https://play.google.com/store/apps/details?hl=en&amp;id=com.ubercab) apps), which is recommended to get a ride fast
+- **Uklon** ([iOS](https://itunes.apple.com/ua/app/id654646098) and [Android](https://play.google.com/store/apps/details?id=ua.com.uklontaxi)).
 
 Taxi services with English-speaking drivers:
 
@@ -76,9 +76,7 @@ As DevFest will be held on Friday/Saturday, we strongly recommend you to stay fo
 
 The most important thing in Lviv is to take a walk with eyes wide opened, as there is charmful architecture in the old city. Pay attention to numerous statues, beautiful churches and small streets with pavement stones. Take [Free Walking Tour](file:///h) (we personally love it and usually take it everywhere we travel) or [Lviv Night Guard](http://www.kumpel-tour.com/en/tours/nichna-varta-Lvova/) tour to hear more about the history, legends and mystical stories of the city.
 
-Don&#39;t miss a chance to see **breathtaking panorama** from the [High Castle](https://goo.gl/maps/SxU7S5ynszQ2), [Town Hall](https://goo.gl/maps/qdGLVHSCX842) or [Olga and Elizabeth church](https://goo.gl/maps/q2JV1gZWvkS2) (just don&#39;t forget to check working hours). Somewhere around the middle of that stairs you might start to think that wasn&#39;t such a good idea
-
-### 😄  but when you finally reach top, the view (and those Instagram photos!) is totally worth it :)
+Don&#39;t miss a chance to see **breathtaking panorama** from the [High Castle](https://goo.gl/maps/SxU7S5ynszQ2), [Town Hall](https://goo.gl/maps/qdGLVHSCX842) or [Olga and Elizabeth church](https://goo.gl/maps/q2JV1gZWvkS2) (just don&#39;t forget to check working hours). Somewhere around the middle of that stairs you might start to think that wasn&#39;t such a good idea 😄,  but when you finally reach top, the view (and those Instagram photos!) is totally worth it :)
 
 <img src="/images/posts/lviv3.jpg" style="width: 70%;"/>
 <div style="text-align:center;">_Olga and Elizabeth church_</div>
