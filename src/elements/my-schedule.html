@@ -140,6 +140,11 @@
             notify: true
           },
 
+          userSessions: {
+            type: Object,
+            notify: true
+          },
+
           schedule: {
             type: Array
           },
@@ -152,6 +157,18 @@
             type: Array,
             value: []
           }
+        },
+
+        observers: [
+          '_userSessionsChanged(app.user.sessions.*)'
+        ],
+
+        _userSessionsChanged: function(sessions) {
+          console.log(sessions.base)
+          this.app.user.sessions = sessions.base;
+          this.set('app.user.sessions',sessions.base);
+          this.notifyPath('app.user.sessions',sessions.base);
+          this.$.mySchedule.render();
         },
 
         _removeFromMySchedule: function (e) {

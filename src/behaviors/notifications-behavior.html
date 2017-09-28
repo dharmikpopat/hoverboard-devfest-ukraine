@@ -1,0 +1,146 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+
+<script>
+
+//var messaging;
+
+  (function () {
+    'use strict';
+
+    /**
+     * @polymerBehavior HOVERBOARD.NotificationsBehavior
+     */
+    HOVERBOARD.NotificationsBehavior = {
+
+      properties: {
+        app: {
+          type: Object,
+          notify: true
+        },
+        statusDenied: {
+          type: String,
+          value: 'DENIED'
+        },
+        statusGranted: {
+          type: String,
+          value: 'GRANTED'
+        },
+        statusDefault: {
+          type: String,
+          value: 'DEFAULT'
+        },
+        messaging: {
+          type: Object
+        }
+      },
+
+     initializeMessaging: function () {
+
+        return new Promise(function(resolve) {
+            this.messaging = firebase.app('hoverboard-dev').messaging();
+            this.messaging.onMessage(function(notification) {
+
+                HOVERBOARD.Elements.Template.$.toast.showMessage(
+                    notification.title + ' ' + notification.body,
+                    this.setLocation(notification.click_action),
+                    '{$ notifications.toast.title $}'
+                );
+            });
+
+            this.messaging.onTokenRefresh(() => {
+                this.getToken(true);
+            });
+
+            resolve(this.messaging);
+        }.bind(this));
+    },
+
+    requestPermission: function() {
+        var messaging = firebase.app('hoverboard-dev').messaging();
+        return messaging.requestPermission()
+        .then(() => {
+            this.getToken(true);
+        })
+        .catch(error => {
+            console.log('Unable to get permission to notify.', error);
+
+            this.updateNotificationData({
+                status: this.statusDenied,
+                token: null
+            });
+        });
+    },
+    
+    setLocation: function(url) {
+        window.history.pushState({}, '', url);
+        Polymer.Base.fire('location-changed', {}, { node: window });
+    },
+
+    getToken: function(subscribe) {
+        var messaging = firebase.app('hoverboard-dev').messaging();
+        return messaging.getToken()
+        .then(currentToken => {
+
+            if (currentToken) {
+            var subscribersRef = firebase.app('hoverboard-dev').database().ref('/notifications/subscribers/' + currentToken);
+            var subscribersPromise = subscribersRef.once('value');
+            var userUid = app.user && (app.user.uid || null);
+
+            var userSubscriptionsPromise = Promise.resolve(null);
+            var userSubscriptionsRef;
+            if (userUid) {
+                userSubscriptionsRef = firebase.app('hoverboard-dev').database().ref('/notifications/users/' + userUid + '/' + currentToken);
+                userSubscriptionsPromise = userSubscriptionsRef.once('value');
+            }
+
+            Promise.all([subscribersPromise, userSubscriptionsPromise])
+                .then(([subscribersSnapshot, userSubscriptionsSnapshot]) => {
+                    var isDeviceSubscribed = subscribersSnapshot.val();
+                    var isUserSubscribed = userSubscriptionsSnapshot ? userSubscriptionsSnapshot.val() : false;
+
+                    if (isDeviceSubscribed) {
+                        this.updateNotificationData({
+                            status: this.statusGranted,
+                            token: currentToken
+                        });
+                        
+                        if (userUid && !isUserSubscribed) {
+                            userSubscriptionsRef.set(userUid);
+                        }
+                    } else if (!isDeviceSubscribed && subscribe) {
+                        subscribersRef.set(true);
+                        userUid && userSubscriptionsRef.set(true);
+
+                        this.updateNotificationData({
+                            status: this.statusGranted,
+                            token: currentToken
+                        });
+                    }
+                });
+            } else {
+                this.updateNotificationData({
+                    status: Notification.permission,
+                    token: null
+                });
+            }
+        })
+        .catch(function() {
+            this.updateNotificationData({
+                status: this.statusDenied,
+                token: null
+            });
+        }.bind(this));
+    },
+
+    updateNotificationData: function(data) {
+        if (!this.app.notifications) {
+            this.app.notifications = {};
+        }
+
+        this.set('app.user.notifications', data);
+    }
+     
+    };
+
+  }());
+</script>

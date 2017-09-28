@@ -20,6 +20,7 @@
 
 <link rel="import" href="effects/fade-effect.html">
 <link rel="import" href="behaviors/utils-behavior.html">
+<link rel="import" href="behaviors/notifications-behavior.html">
 <link rel="import" href="elements/app-data.html">
 <link rel="import" href="elements/drawer-block.html">
 <link rel="import" href="elements/toolbar-block.html">
@@ -116,7 +117,8 @@
       name="{$ firebase.name $}"
       auth-domain="{$ firebase.domain $}"
       database-url="{$ firebase.database $}"
-      api-key="{$ firebase.api $}">
+      api-key="{$ firebase.api $}"
+      messaging-sender-id="{$ firebase.messagingSenderId $}">
     </firebase-app>
 
     <app-data
@@ -237,7 +239,8 @@
         is: 'hoverboard-app',
 
         behaviors: [
-          HOVERBOARD.UtilsBehavior
+          HOVERBOARD.UtilsBehavior,
+          HOVERBOARD.NotificationsBehavior
         ],
 
         properties: {
@@ -278,7 +281,7 @@
           Polymer.RenderStatus.afterNextRender(this, function () {
             HOVERBOARD.ServiceWorkerRegistration.register();
             this.importHref(this.resolveUrl('pages/blog-page.html'), null, null, true);
-          }.bind(this));
+          }.bind(this));         
         },
 
         _routePageChanged: function (page) {

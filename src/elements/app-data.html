@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../behaviors/notifications-behavior.html">
 
 <dom-module id="app-data">
   <template>
@@ -143,6 +144,10 @@
       Polymer({
         is: 'app-data',
 
+        behaviors: [
+          HOVERBOARD.NotificationsBehavior
+        ],
+
         properties: {
           app: {
             type: Object,
@@ -193,6 +198,11 @@
 
         ready: function () {
           this.app = this.app || {};
+
+          // setTimeout(function() {
+          //   this.initializeMessaging();
+          // }.bind(this), 10000)
+          this.initializeMessaging().then(this.getToken.bind(this));
         },
 
         _generateSchedule: function (_speakersRaw, _sessionsRaw, _scheduleRaw) {

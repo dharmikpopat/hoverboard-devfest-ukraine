@@ -12,6 +12,7 @@
 
 <link rel="import" href="../styles/shared-styles.html">
 <link rel="import" href="../behaviors/utils-behavior.html">
+<link rel="import" href="../behaviors/notifications-behavior.html">
 
 
 <dom-module id="toolbar-block">
@@ -163,6 +164,20 @@
 
         <paper-tab class="signin-tab" on-tap="signIn" hidden$="[[app.user]]">{$ signIn $}</paper-tab>
 
+        <paper-menu-button 
+          id="notificationsMenu"
+          class="notifications-menu"
+          vertical-align="top"
+          horizontal-align="right"
+          no-animations>
+
+          <paper-icon-button
+            icon$="[[notificationIcon]]"
+            class="dropdown-trigger"
+          ></paper-icon-button>
+
+        </paper-menu-button>
+
         <paper-menu-button
           class="auth-menu"
           hidden$="[[!app.user]]"
@@ -212,17 +227,23 @@
         is: 'toolbar-block',
 
         behaviors: [
-          HOVERBOARD.UtilsBehavior
+          HOVERBOARD.UtilsBehavior,
+          HOVERBOARD.NotificationsBehavior
         ],
 
         properties: {
           hideLogo: {
             type: Boolean
+          },
+          notificationIcon: {
+            type: String,
+            value: 'bell-outline'
           }
         },
 
         observers: [
-          '_stylesChanged(app.headerSettings)'
+          '_stylesChanged(app.headerSettings)',
+          '_notificationStatusUpdated(app.notifications.status)'
         ],
 
         togglePanel: function () {
@@ -235,6 +256,14 @@
 
         signOut: function () {
           HOVERBOARD.Elements.Template.signOut();
+        },
+
+        _notificationStatusUpdated: function(status) {
+          this.notificationIcon = status === this.statusDefault
+          ? 'bell-outline'
+          : status === this.statusGranted
+            ? 'bell'
+            : 'bell-off';
         },
 
         _stylesChanged: function (headerSettings) {
