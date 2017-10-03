@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 
@@ -24,15 +25,46 @@
         line-height: 1.5;
       }
 
-      h2 {
-        font-size: 42px;
-        line-height: 1;
+      .info-icon {
+        --iron-icon-height: 56px;
+        --iron-icon-width: 56px;
+        --iron-icon-fill-color: var(--default-primary-color);
+        margin-right: 20px;
       }
-    </style>
 
-    <h2>All tickets are sold out</h2>
-    <iron-icon class="details-icon" icon="info"></iron-icon>
-    <p>You still have a small chance to get a ticket. Join our <a href="https://www.facebook.com/events/1771847236475359" target="_blank" rel="noopener noreferrer">Facebook</a> event, maybe somebody will post tickets for re-sale.</p>
+      h3 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-left: 5px;
+      }
+
+      paper-button {
+        background-color: var(--default-primary-color);
+        color: #fff;        
+        float: right;
+      }
+
+      @media (min-width: 601px) {
+        h3 {
+          font-size: 24px;
+        }
+  
+        p {
+          font-size: 18px;
+        }
+      }
+
+    </style>
+  
+    <div class="header" layout horizontal>
+      <iron-icon class="info-icon" icon="info"></iron-icon>
+      <h3>[[headerText]]</h3>
+    </div>
+    <p>[[infoText]]</p>
+    <paper-button class="cta-button" on-tap="close">[[ctaButtonText]]</paper-button>
   </template>
 
   <script>
@@ -47,6 +79,18 @@
           Polymer.PaperDialogBehavior,
           Polymer.NeonAnimationRunnerBehavior
         ],
+
+        properties: {
+          headerText: {
+            type: String
+          },
+          infoText: {
+            type: String
+          },
+          ctaButtonText: {
+            type: String
+          }
+        },
 
         listeners: {
           'neon-animation-finish': '_onNeonAnimationFinish'
